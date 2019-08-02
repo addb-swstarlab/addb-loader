@@ -3,38 +3,23 @@ package kr.ac.yonsei.delab.addb_loader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import redis.clients.addb_jedis.*;
 import redis.clients.addb_jedis.util.JedisClusterCRC16;
 import redis.clients.addb_jedis.util.SafeEncoder;
 
 public class JedisManager {
 	List<RedisNode> jedisClusterNodes;
-	
+	ExecutorService executorService; 
 	public JedisManager() {
 		jedisClusterNodes = new ArrayList<RedisNode>();
+
+		executorService = Executors.newFixedThreadPool(6);
 		createJedisCluster();
 		Collections.sort(jedisClusterNodes);
 	}
-	
-//	public RedisNode retRedisNode(String key) {
-//		int slot = JedisClusterCRC16.getSlot(key);
-//
-//		int start = 0;
-//		int end = jedisClusterNodes.size() - 1;
-//		
-//		while (start < end) {
-//			int middle = (start + end) / 2;
-//			int startSlot = jedisClusterNodes.get(middle).startSlot_;
-//			int endSlot = jedisClusterNodes.get(middle).endSlot_;
-//			if( startSlot <= slot ) {
-//				start = middle + 1;
-//			} else {
-//				end = middle;
-//			}
-//		}
-//		 
-//		return jedisClusterNodes.get(end - 1);
-//	}
 	
 	public RedisNode retRedisNode(String key) {
 		int slot = JedisClusterCRC16.getSlot(key);
@@ -42,20 +27,25 @@ public class JedisManager {
 		int start = 0;
 		int end = jedisClusterNodes.size() - 1;
 		int pos = 0;
-		
-		while (start < end) {
+
+		while (true) {
 			int middle = (start + end) / 2;
 			int startSlot = jedisClusterNodes.get(middle).startSlot_;
 			int endSlot = jedisClusterNodes.get(middle).endSlot_;
 			if( startSlot <= slot && slot <= endSlot ) {
 				pos = middle;
+				break;
 			} else if (  slot < startSlot ) {
-				start = middle + 1;
-			} else if ( endSlot < slot ) {
 				end = middle - 1;
+			} else if ( endSlot < slot ) {
+				start = middle + 1;
 			}
 		}
 		 
+//		System.out.println("target slot = " + slot);
+//		System.out.println("node target = " +
+//		jedisClusterNodes.get(pos).startSlot_ + " ~ "
+//				+ jedisClusterNodes.get(pos).endSlot_);
 		return jedisClusterNodes.get(pos);
 	}
 	
@@ -86,10 +76,12 @@ public class JedisManager {
 	}
 	
 	public void close() {
+		
+	  executorService.shutdown();
 	  for (int i = 0; i < jedisClusterNodes.size(); i++) {
-		  if(jedisClusterNodes.get(i).pip != null) {
-			 jedisClusterNodes.get(i).pip.sync();
-		  }
+//		  if(jedisClusterNodes.get(i).pip != null) {
+//			 jedisClusterNodes.get(i).pip.sync();
+//		  }
 		  
 		  jedisClusterNodes.get(i).close();
 	  }

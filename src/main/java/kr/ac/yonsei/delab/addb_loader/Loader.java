@@ -47,22 +47,28 @@ public class Loader
 //    	for(int i=0; i< partition_columns.length; i++) {
 //        	System.out.println("partition column " + partition_columns[i]);    		
 //    	}
-
-    	
+       long setup;
+    	setup = System.currentTimeMillis();
     	JedisManager jManager = new JedisManager();
+    	System.out.println("Setup time = " + ((System.currentTimeMillis() - setup) / 1000));
     	
     	File file = new File(table_name);
     	BufferedReader inFile = null;
-    	
+    	double startTime, endTime;
+    	double pt;
+    	double duration = 0;
     	int colCnt = 0;
+    	startTime = System.currentTimeMillis();
     	try {
         	inFile = new BufferedReader(new FileReader(file));
         	String line = null;
         	while ((line = inFile.readLine()) != null) {
         		String array[] = line.split("\\|");
         		if(colCnt == 0)  colCnt = array.length;
+        		pt = System.currentTimeMillis();
         		RedisClient client = new RedisClient(jManager, table_id, array, partition_columns, colCnt);
-        		client.execute();        		
+        		client.execute();
+        		duration += ((System.currentTimeMillis() - pt) /1000);
         	}
         	
     	} catch (FileNotFoundException e) {
@@ -78,7 +84,12 @@ public class Loader
     			e.printStackTrace();
     		}
     	}
+    	endTime = System.currentTimeMillis();
+    	System.out.println("duration = " + duration);
+    	System.out.println("Read Time = " + ((endTime - startTime) / 1000));
+    	long close = System.currentTimeMillis();
     	jManager.close();
+    	System.out.println("Close Time = " + ((System.currentTimeMillis() - close) / 1000 ));
 
     }
 }

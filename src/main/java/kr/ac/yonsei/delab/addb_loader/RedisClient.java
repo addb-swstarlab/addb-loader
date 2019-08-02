@@ -1,5 +1,6 @@
 package kr.ac.yonsei.delab.addb_loader;
 
+import java.lang.management.GarbageCollectorMXBean;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,7 +32,10 @@ public class RedisClient {
 		RedisNode rn = jmanager_.retRedisNode(args.getDataKey());
 //		System.out.println("selected :" + rn.Host_ + " and " + rn.Port_
 //				+ " start slot " + rn.startSlot_ + " end slot " + rn.endSlot_);
-		rn.execute(args);
+		PipelineWorker worker = rn.execute(args);
+		if(worker != null) {
+			jmanager_.executorService.execute(worker);
+		}
 	}
 	
 	public CommandArgsObject createArgsObject() {
