@@ -1,0 +1,41 @@
+tables:
+  nation:
+    id: 1
+    file: "nation.tbl"
+    partitionCols:
+      - "1"
+  region:
+    id: 2
+    file: "region.tbl"
+    partitionCols:
+      - "1"
+  part:
+    id: 3
+    file: "part.tbl"
+    partitionCols:
+      - "4"
+  supplier:
+    id: 4
+    file: "supplier.tbl"
+    partitionCols:
+      - "4"
+  partsupp:
+    id: 5
+    file: "partsupp.tbl"
+    partitionCols:
+      - "2"
+  customer:
+    id: 6
+    file: "customer.tbl"
+    partitionCols:
+      - "4"
+  orders:
+    id: 7
+    file: "orders.tbl"
+    partitionCols:
+      - "5"
+  lineitem:
+    id: 8
+    file: "lineitem.tbl"
+    partitionCols:
+      - "3"

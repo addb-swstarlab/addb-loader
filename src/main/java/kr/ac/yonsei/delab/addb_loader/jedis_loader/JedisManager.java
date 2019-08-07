@@ -1,4 +1,4 @@
-package kr.ac.yonsei.delab.addb_loader;
+package kr.ac.yonsei.delab.addb_loader.jedis_loader;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import kr.ac.yonsei.delab.addb_loader.Global;
 import redis.clients.addb_jedis.*;
 import redis.clients.addb_jedis.util.JedisClusterCRC16;
 import redis.clients.addb_jedis.util.SafeEncoder;
@@ -52,7 +53,7 @@ public class JedisManager {
 	public void createJedisCluster() {
 		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
 		/* Master Instance */
-		JedisPool pool = new JedisPool(jedisPoolConfig, "165.132.172.58", 8000);
+		JedisPool pool = new JedisPool(jedisPoolConfig, Global.host, Global.port);
 		Jedis jedis = pool.getResource();
 		List<Object> slotinfos = jedis.clusterSlots();
 		for (int i = 0; i < slotinfos.size(); i++) {

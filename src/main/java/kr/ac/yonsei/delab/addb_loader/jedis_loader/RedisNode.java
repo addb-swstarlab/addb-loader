@@ -1,11 +1,4 @@
-package kr.ac.yonsei.delab.addb_loader;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+package kr.ac.yonsei.delab.addb_loader.jedis_loader;
 
 import redis.clients.addb_jedis.Jedis;
 import redis.clients.addb_jedis.JedisPool;
@@ -13,8 +6,6 @@ import redis.clients.addb_jedis.JedisPoolConfig;
 import redis.clients.addb_jedis.Pipeline;
 import redis.clients.addb_jedis.Protocol;
 import redis.clients.addb_jedis.util.CommandArgsObject;
-
-import kr.ac.yonsei.delab.addb_loader.RNWorker;
 
 public class RedisNode implements Comparable {
 	String Host_;

@@ -1,4 +1,4 @@
-package kr.ac.yonsei.delab.addb_loader;
+package kr.ac.yonsei.delab.addb_loader.jedis_loader;
 
 import redis.clients.addb_jedis.Jedis;
 import redis.clients.addb_jedis.Pipeline;
