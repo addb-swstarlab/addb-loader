@@ -67,11 +67,24 @@ public class Main {
         System.out.println(Global.config);
 
         /* Start Loader... */
-        Loader loader = JedisLoader.create(
-                Integer.toString(tableConfig.getId()),
-                tableConfig.getFile(),
-                tableConfig.getPartitionCols()
-        );
+        Loader loader;
+        if (Global.config.getLoader().equalsIgnoreCase("jedis")) {
+            loader = JedisLoader.create(
+                    Integer.toString(tableConfig.getId()),
+                    tableConfig.getFile(),
+                    tableConfig.getPartitionCols()
+            );
+        } else if (Global.config.getLoader().equalsIgnoreCase("lettuce")) {
+            // TODO(totoro): Implements Lettuce Loader
+            System.out.println("TODO(totoro): Implements Lettuce Loader...");
+            loader = JedisLoader.create(
+                    Integer.toString(tableConfig.getId()),
+                    tableConfig.getFile(),
+                    tableConfig.getPartitionCols()
+            );
+        } else {
+            throw new RuntimeException("Loader must be either 'jedis' or 'lettuce'.");
+        }
         loader.start();
     }
 }

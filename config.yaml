@@ -1,3 +1,4 @@
+loader: "jedis"
 tables:
   nation:
     id: 1

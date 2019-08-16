@@ -44,6 +44,11 @@
       <artifactId>addb-jedis</artifactId>
       <version>0.0.2</version>
     </dependency>
+    <dependency>
+      <groupId>kr.ac.yonsei.delab</groupId>
+      <artifactId>addb-lettuce</artifactId>
+      <version>0.0.1</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
