@@ -1,4 +1,4 @@
-loader: "jedis"
+loader: "lettuce"
 tables:
   nation:
     id: 1

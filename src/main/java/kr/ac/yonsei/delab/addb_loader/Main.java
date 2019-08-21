@@ -1,6 +1,7 @@
 package kr.ac.yonsei.delab.addb_loader;
 
 import kr.ac.yonsei.delab.addb_loader.jedis_loader.JedisLoader;
+import kr.ac.yonsei.delab.addb_loader.lettuce_loader.LettuceLoader;
 import org.apache.commons.cli.*;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -77,7 +78,7 @@ public class Main {
         } else if (Global.config.getLoader().equalsIgnoreCase("lettuce")) {
             // TODO(totoro): Implements Lettuce Loader
             System.out.println("TODO(totoro): Implements Lettuce Loader...");
-            loader = JedisLoader.create(
+            loader = LettuceLoader.create(
                     Integer.toString(tableConfig.getId()),
                     tableConfig.getFile(),
                     tableConfig.getPartitionCols()
