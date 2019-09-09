@@ -2,41 +2,41 @@ loader: "lettuce"
 tables:
   nation:
     id: 1
-    file: "nation.tbl"
+    file: "data/nation.tbl"
     partitionCols:
       - "1"
   region:
     id: 2
-    file: "region.tbl"
+    file: "data/region.tbl"
     partitionCols:
       - "1"
   part:
     id: 3
-    file: "part.tbl"
+    file: "data/part.tbl"
     partitionCols:
       - "4"
   supplier:
     id: 4
-    file: "supplier.tbl"
+    file: "data/supplier.tbl"
     partitionCols:
       - "4"
   partsupp:
     id: 5
-    file: "partsupp.tbl"
+    file: "data/partsupp.tbl"
     partitionCols:
       - "2"
   customer:
     id: 6
-    file: "customer.tbl"
+    file: "data/customer.tbl"
     partitionCols:
       - "4"
   orders:
     id: 7
-    file: "orders.tbl"
+    file: "data/orders.tbl"
     partitionCols:
       - "5"
   lineitem:
     id: 8
-    file: "lineitem.tbl"
+    file: "data/lineitem.tbl"
     partitionCols:
       - "3"
