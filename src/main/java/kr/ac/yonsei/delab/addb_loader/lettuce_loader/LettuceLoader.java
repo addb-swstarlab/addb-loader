@@ -466,14 +466,14 @@ public class LettuceLoader implements Loader {
                 .flatMap(futureFlux -> futureFlux
                         .collectList()
                         .flatMap(futures -> {
-                            System.out.println(futures.size() + ": " + Thread.currentThread().getName());
+//                            System.out.println(futures.size() + ": " + Thread.currentThread().getName());
                             return Mono.fromCallable(() -> LettuceFutures.awaitAll(
                                     1,
                                     TimeUnit.HOURS,
                                     futures.toArray(new RedisFuture[0])
                             ));
                         })
-                        .doOnNext(result -> System.out.println(Thread.currentThread().getName() + " Finished"))
+//                        .doOnNext(result -> System.out.println(Thread.currentThread().getName() + " Finished"))
                 )
                 .blockLast();
     }
