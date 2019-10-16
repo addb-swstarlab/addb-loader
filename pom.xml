@@ -67,6 +67,20 @@
       <artifactId>addb-lettuce</artifactId>
       <version>0.0.1</version>
     </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-native-epoll</artifactId>
+      <version>4.1.38.Final</version>
+      <classifier>linux-x86_64</classifier>
+      <optional>true</optional>
+	  </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-native-kqueue</artifactId>
+      <version>4.1.38.Final</version>
+      <classifier>osx-x86_64</classifier>
+      <optional>false</optional>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
